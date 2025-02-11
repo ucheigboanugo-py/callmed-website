@@ -1,1035 +1,2422 @@
-/* General Styles */
-html, body {
-    margin: 0;
-    font-family: Inter, sans-serif;
-    color: #333;
-    line-height: 1.6;
-    width: 100%;
-    overflow-x: hidden;
-    padding: 0;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-
 body {
     font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p, a, li, span, div {
     font-family: 'Inter', sans-serif;
-    font-weight: 700;
-}
-
-p, a, li, span, div {
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
 }
 
 
+/* General Media Queries for Responsiveness */
+
+/* Mobile First Approach */
+
+/* Reset and Ensure Visibility */
+@media (max-width: 768px) {
+    /* Scale down everything */
+    html, body {
+        font-size: 14px; /* Reduce base font size */
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* Base Styling */
 .country-selection {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
-    background-color: #f1f1f1;
-    border-bottom: 1px solid #ddd;
-    width: 100%;
-    position: relative;
-    border-radius: 5px;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
 }
 
+/* Paragraph Styling */
 .country-selection p {
-    margin: 0;
-    font-size: 1.2remrem; /* Reduced font size */
-    flex: 1;
-    text-align: center; /* Center align text */
-    margin-bottom: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
 }
 
-.country-selection-controls {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    justify-content: center; /* Align controls to the right */
-    margin-left: 1rem;
-    border-radius: 5px;
-    gap: 1rem
-}
-
+/* Select Dropdown */
 .country-selection select {
-    width: 300px;
-    margin-right: 1rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem; /* Reduced font size */
-    border-radius: 5px; /* Curved edges */
-    border: 1px solid #ddd;
-    outline: none;
-    transition: border-color 0.3s;
-    background-color: #fff; /* Remove blue background */
-    color: #333; /* Text color */
-    appearance: none; /* Remove default dropdown arrow */
-    -webkit-appearance: none; /* Remove default dropdown arrow for Safari */
-    -moz-appearance: none; /* Remove default dropdown arrow for Firefox */
-}
-
-.country-selection select:focus {
-    outline: none; /* Remove blue outline on focus */
+    width: auto;
+    min-width: 150px;
+    font-size: 1rem;
+    padding: 0.4rem;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 0 0 2px #D9D9D9; /* Add custom focus outline */
 }
 
-.country-selection button#continue-button {
+/* Buttons */
+.country-selection button {
+    font-size: 1rem;
     padding: 0.5rem 1rem;
-    font-size: 0.875rem; /* Reduced font size */
-    background-color: #40be24;
-    color: #fff;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    border-radius: 5px; /* Curved edges */
 }
 
-.country-selection button#continue-button:hover {
-    background-color: #369b1d;
+/* Primary Button */
+.country-selection .btn-primary {
+    background-color: #5a24be;
+    color: white;
 }
 
-.close-button {
-    background: none; /* Remove background */
+/* Secondary Button (Close) */
+.country-selection .btn-secondary {
+    background-color: none;
+    color: white;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .country-selection {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .country-selection select {
+        width: 100%;
+    }
+
+    .country-selection p {
+        font-size: 0.9rem;
+    }
+
+    .country-selection button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .country-selection p {
+        font-size: 0.85rem;
+    }
+
+    .country-selection select {
+        font-size: 0.9rem;
+    }
+
+    .country-selection button {
+        font-size: 0.85rem;
+    }
+}
+
+
+/* Navigation Bar Styling */
+.navbar {
+    background-color: #f8f9fa; /* Light grey background */
+    padding: 0.8rem 1rem; /* Spacing for clarity */
+}
+
+/* Navbar Brand (Logo) */
+.navbar-brand img {
+    max-height: 50px; /* Ensures logo is well-scaled */
+    width: auto;
+}
+
+/* Navbar Items */
+.navbar-nav .nav-item {
+    margin: 0 10px; /* Spacing between menu items */
+}
+
+/* Navbar Links */
+.navbar-nav .nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Navbar Links Hover Effect */
+.navbar-nav .nav-link:hover {
+    color: #007bff;
+}
+
+/* Navbar Toggler (Hamburger Menu) */
+.navbar-toggler {
     border: none;
-    font-size: 2.5rem;
-    cursor: pointer;
-    font-weight: 400;
-    margin-left: 0.5rem; /* Add margin to the left */
-    color: #333; /* Ensure the color matches the text */
+    background: none;
+    font-size: 1.5rem;
+    position: absolute;
+    right: 1rem;
+    padding: 0;
 }
 
-/* Header Styles */
-header {
-    background: #f7f9f7;
-    color: #030101;
-    padding: 0.55rem 0;
-    position: sticky;
+/* Remove the default button style */
+.navbar-toggler:focus,
+.navbar-toggler:active {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Modify the Hamburger Icon */
+.navbar-toggler-icon {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    display: block;
+    position: relative;
+}
+
+/* Reduce from three lines to two */
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+    content: "";
+    width: 24px;
+    height: 3px;
+    background-color: #333;
+    position: absolute;
+    left: 0;
+    display: block;
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar-toggler.open .navbar-toggler-icon {
+    background-color: transparent; /* Hide main line */
+}
+
+.navbar-toggler.open .navbar-toggler-icon::before {
+    transform: rotate(45deg);
     top: 0;
+}
+
+.navbar-toggler.open .navbar-toggler-icon::after {
+    transform: rotate(-45deg);
+    top: 0;
+}
+
+
+/* First line (top) */
+.navbar-toggler-icon::before {
+    top: -6px;
+}
+
+/* Second line (bottom) */
+.navbar-toggler-icon::after {
+    top: 6px;
+}
+
+/* Hide the middle line to create a two-line menu */
+.navbar-toggler-icon.middle-line {
+    display: none;
+}
+
+/* Position the two lines */
+.navbar-toggler-icon::before {
+    top: -8px;
+}
+
+.navbar-toggler-icon::after {
+    top: 8px;
+}
+
+.navbar-toggler-icon,
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+    height: 0.75px; /* Reduce thickness */
+    background-color: black; /* Change color if needed */
+}
+
+/* Default navbar */
+#navbar {
+    transition: background-color 0.3s, box-shadow 0.3s;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
     z-index: 1000;
 }
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-    background-color: #fff;
+
+/* Add padding so content doesn't get hidden under navbar */
+body {
+    padding-top: 80px; /* Adjust based on navbar height */
+}
+
+/* Dark & Transparent Navbar on Scroll */
+#navbar.scrolled {
+    background-color: rgba(0, 0, 0, 0.6); /* Adjust transparency */
+    backdrop-filter: blur(5px); /* Optional: adds a blur effect */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Change text & logo color */
+#navbar.scrolled .nav-link {
+    color: #fff !important;
+}
+
+#navbar.scrolled .navbar-brand img {
+    filter: brightness(0) invert(1); /* Makes logo white */
 }
 
 
 
-.logo {
-    margin-right: auto;
-}
 
-.logo img {
-    height: 30px;
-}
+/* Alignments for Desktop */
+@media (min-width: 992px) {
+    .navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-.navbar nav {
-    flex-grow: 1;
-    text-align: center;
-    margin-left: -100px;
-}
+    /* Ensure items are centered */
+    .navbar-nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-.navbar nav ul {
-    display: inline-flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.navbar ul {
-    display: inline-block;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.navbar ul li {
-    display: inline-block;
-    margin: 0 15px;
+    /* Hide the hamburger menu on larger screens */
+    .navbar-toggler {
+        display: none;
+    }
 }
 
 
-.navbar a {
-    color: #110202;
-    text-decoration: none;
-    font-weight: light;
-    font-family: Inter, sans-serif;
-    text-align: center;
-    font-size: 0.875rem;
+
+@media (max-width: 991px) {
+    /* Center the logo */
+    .navbar-brand {
+        margin-left: 0;
+        margin-right: auto;
+    }
+
+    /* Full-width collapsed menu */
+    .navbar-collapse {
+        text-align: center;
+        background: #fff;
+        padding: 1rem 0;
+    }
+
+    /* Make menu items full-width */
+    .navbar-nav .nav-item {
+        width: 100%;
+        padding: 0.5rem 0;
+    }
+
+    /* Hamburger Menu Icon Spacing */
+    .navbar-toggler {
+        position: absolute;
+        right: 1rem;
+    }
 }
 
-/* Hero Section Styles */
 .hero {
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 0;
-    background: #f4f4f4;
+    align-items: center;
     width: 100%;
-    height: 70vh;
     overflow: hidden;
-    margin: 0 auto;
-    position: relative;
 }
 
 .hero-images {
     width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.hero-text {
-    max-width: 50%;
-}
-.hero-text h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    max-width: 1400px;
 }
 
 .hero-images img {
-    max-width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ensures it fills the space without distortion */
+}
+
+/* Adjust height for larger screens */
+@media (min-width: 1024px) {
+    .hero-images img {
+        max-height: 600px; /* Increase image size on large screens */
+    }
+}
+
+/* Adjust height for medium screens */
+@media (max-width: 1023px) and (min-width: 768px) {
+    .hero-images img {
+        max-height: 450px;
+    }
+}
+
+/* Adjust height for small screens */
+@media (max-width: 767px) {
+    .hero-images img {
+        max-height: 350px;
+    }
+}
+
+.about-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 5%;
+    background-color: #f8f8f8;
+}
+
+.about-content {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+/* Left Section */
+.about-left {
+    display: flex;
+    flex-direction: row; /* Align line and text in the same row */
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+    margin-right: 20px;
+    margin-left: 50px;
+}
+
+.purple-line {
+    width: 60px;
+    height: 5px;
+    background-color: #5A24BE; /* Purple */
+}
+
+/* Styling for Text */
+.about-left h2 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    line-height: 1.3;
+    margin: 0;
+}
+
+.about-left h2 strong {
+    font-weight: 700;
+}
+
+/* Right Section */
+.about-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+    position: relative;
+    margin-left: -10px;
+}
+
+/* Green Line Fix */
+.green-line {
+    width: 30px; /* Ensure it's visible */
+    height: 200px; /* Keep it balanced */
+    background-color: #40BE24 !important; /* Force green color */
+    margin-right: auto; /* Push it slightly left */
+    margin-left: auto;  /* Keep it centered */
+    position: relative;
+    left: -90px;
 }
 
 
-/* Business Units Section Styles */
+/* Styling for the Text Section */
+.about-text {
+    max-width: 600px;
+}
+
+.about-text {
+    margin-left: 0; /* Remove extra spacing */
+    padding-left: 0; /* Adjust if needed */
+    text-align: left;
+    margin-left: -50px;
+}
+
+
+.about-text p {
+    font-size: 0.9rem; /* Reduce text size */
+    line-height: 1.4; /* Improve readability */
+    margin-bottom: 15px;
+    margin-left: -60px; /* Adjust as needed */
+}
+
+
+.about-text strong {
+    font-weight: 700;
+}
+
+/* Shift heading (about-left h2) to the right */
+.about-left h2 {
+    margin-right: 20px; /* Adjust as needed */
+}
+
+/* Shift paragraph (about-right p) to the left */
+.about-right p {
+    margin-left: -10px; /* Adjust as needed */
+}
+
+@media (max-width: 768px) {
+    .about-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: 15px;
+    }
+
+    .about-left,
+    .about-right {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    /* Row arrangement: Purple Line -> Heading -> Green Line -> Text */
+    .about-left {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        margin-left: -10px;
+    }
+
+    /* Purple Line (Before Header) */
+    .purple-line {
+        width: 40px;
+        height: 5px;
+        background-color: purple;
+        flex-shrink: 0;
+    }
+
+    /* Header */
+    .about-left h2 {
+        font-size: 1.4rem;
+        line-height: 1.3;
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    /* Green Line (After Header) */
+    .green-line {
+        width: 5px;
+        height: 50px;
+        background-color: green;
+        flex-shrink: 0;
+        margin-left: 10px;
+    }
+
+    /* Ensure text appears beside header */
+    .about-right {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .about-text {
+        max-width: 100%;
+        flex-grow: 1;
+    }
+
+    .about-text p {
+        font-size: 1rem;
+        margin: 5px 0;
+    }
+}
+
+/* Base hidden state */
+.animate {
+    opacity: 0; /* Hidden at first */
+    transition: all 0.8s ease-out;
+}
+
+/* Slide in from left */
+.slide-in-left {
+    transform: translateX(-50px); /* Start off-screen to the left */
+}
+
+/* Slide in from right */
+.slide-in-right {
+    transform: translateX(50px); /* Start off-screen to the right */
+}
+
+/* When in viewport, make them visible */
+.animate.active {
+    opacity: 1;
+    transform: translateX(0); /* Move into place */
+}
+
+
+/* General Styles */
 .business-units {
     padding: 2rem 0;
     background: #f9f9f9;
     margin-top: -1rem;
 }
 
+/* Business Unit Grid for Desktop */
 .business-unit-grid {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin: auto;
     max-width: 1200px;
+    margin: auto;
 }
 
+/* Each Business Unit */
 .business-unit-item {
-    perspective: 1000px; /* Enables the 3D flip effect */
+    flex: 1 1 calc(33.333% - 1rem);
     margin: 0.5rem;
-    flex: 1 1 calc(33.333% - 1rem); /* Equal width for 3 cards per row */
     box-sizing: border-box;
-    background: none; /* Remove background color */
-    border-radius: 0; /* Remove border-radius */
 }
 
-
-
+/* Card Styles */
 .card {
     width: 100%;
-    height: 450px;
+    height: 550px; /* Default increased height */
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.6s;
     cursor: pointer;
     border-radius: 10px;
     overflow: hidden;
-    border: 1px solid #ccc; /* Explicitly set border color */
+    border: 1px solid #ccc;
 }
 
-.card-front, .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    border-radius: 10px;
-    border: 1px solid #ccc; /* Explicitly set border color */
+/* Hide Flickity by Default */
+.business-carousel {
+    display: none;
 }
 
-/* Card Front */
-.card-front {
-    background: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start; /* Align content to the top */
-    padding: 1rem;
+/* Enable Flickity on Mobile */
+@media (max-width: 768px) {
+    .business-unit-grid {
+        display: none; /* Hide Grid Layout */
+    }
+
+    .business-carousel {
+        display: block; /* Enable Flickity */
+        width: 90%;
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .carousel-cell {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
+        box-sizing: border-box;
+    }
+
+    .card {
+        width: 100%;
+        height: 420px;
+    }
 }
 
-/* Card Front Image */
-.card-front img {
-    width: 90%; /* Default image width */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: contain;
-    position: absolute;
-    bottom: 0; /* Align to bottom */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%);
-    border-radius: 10px 10px 0 0; /* Round only top corners */
-}
-
-/* Card Back */
-.card-back {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    transform: none;
-}
-
-/* Hover Effect: Flip the Card */
-.card:hover {
-    transform: scale(1.05);
-}
-
-
-/* Specific styles for the first card */
+/* Background color for Card 1 */
 .business-unit-item:nth-child(1) .card {
-    background: #D9D9D9; /* Background color for the card */
+    background: #D9D9D9;
+    padding: 1.5rem; /* Adds space inside the card */
 }
 
-.business-unit-item:nth-child(1) .card-front img {
-    max-height: 70%; /* Adjust image height */
-    width: auto; /* Maintain natural width */
-    object-fit: contain; /* Prevent stretching */
+/* Adjust Image Size & Position */
+.business-unit-item:nth-child(1) .card figure {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+    position: relative;
+    bottom: 190px; /* Moves image up */
+}
+
+.business-unit-item:nth-child(1) .card img {
+    max-height: 100%; /* Reduce image size slightly */
+    object-fit: contain;
+    width: auto;
     position: absolute;
-    bottom: 0; /* Align image base with the card base */
-    left: 47%; /* Center horizontally */
-    transform: translateX(-50%);
+    bottom: -215px;
 }
 
-.business-unit-item:nth-child(1) .card-front {
-    justify-content: flex-start; /* Align content to the top */
-}
-
+/* Text Styling */
 .business-unit-item:nth-child(1) .card-content {
     text-align: left;
-    padding: 0.5rem; /* Adjust padding as needed */
-    margin-top: 0; /* Add margin to create space between content and image */
+    padding-left: 1.5rem; /* Moves text towards the right */
 }
 
-.business-unit-item:nth-child(1) .card-content h3 {
+/* Clean, modern font for title and subheading */
+.business-unit-item:nth-child(1) .card-content .title {
     font-weight: bold;
-    margin-top: 0;
+    font-size: 1.4rem; /* Larger, cleaner font */
+    font-family: 'Inter', sans-serif; /* Example of a clean font */
 }
 
 .business-unit-item:nth-child(1) .card-content p {
-    margin-top: -0.75rem;
-    margin-bottom: 0.25rem; /* Adjust margin as needed */
-    font-size: 0.875rem;
+    font-weight: normal;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    margin-top: -0.5rem;
+    position: relative;
 }
 
-.business-unit-item:nth-child(1) .learn-more-btn {
-    display: inline-block;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
+
+/* Bigger "Discover Linq" Button */
+.business-unit-item:nth-child(1) .card-content .button {
     background-color: #5a24be;
-    color: #fff;
-    text-decoration: none;
+    color: white;
+    font-weight: normal;
+    text-transform: capitalize;
     border-radius: 5px;
+    padding: 0.5rem 1.5rem; /* Makes the button larger */
+    font-size: 1rem;
+    display: inline-block;
     margin-top: 0.5rem;
+    text-decoration: none;
 }
 
-.business-unit-item:nth-child(1) .learn-more-btn:hover {
-    background-color: #0056b3;
+.business-unit-item:nth-child(1) .card-content .button:hover {
+    background-color: #4a1ea6;
 }
 
+/* Ensure the card is positioned relative */
 .business-unit-item:nth-child(2) .card {
-    background: #f5f5f5; /* Set background color */
+    height: 100%; /* Ensure the card takes full height */
+    display: flex; /* Helps structure the layout properly */
+    flex-direction: column;
+    position: relative;
+    overflow: hidden; /* Ensures the image doesn't cause layout shifts */
 }
 
-.business-unit-item:nth-child(2) .card-front, 
-.product-item:nth-child(2) .card-back {
-    background: #f5f5f5; /* Set background color */
-}
-
-.business-unit-item:nth-child(2) .card-front {
-    background: url('images/callmedcore.jpg') no-repeat center center;
-    background-size: cover; /* Ensure the image covers the entire card */
-}
-
+/* Position the content absolutely over the image */
 .business-unit-item:nth-child(2) .card-content {
-    text-align: left;
-    padding: 0.5rem; /* Adjust padding as needed */
-    margin-top: 0; /* Add margin to create space between content and image */
-}
-
-.business-unit-item:nth-child(2) .card-content h3 {
-    font-weight: bold;
-    margin-top: 0;
-}
-
-.business-unit-item:nth-child(2) .card-content p {
-    margin-top: -0.75rem;
-    margin-bottom: 0.25rem; /* Adjust margin as needed */
-    font-size: 0.875rem;
-}
-
-.business-unit-item:nth-child(2) .learn-more-btn {
-    display: inline-block;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-    background-color: #5a24be;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 0.5rem;
-}
-
-.business-unit-item:nth-child(2) .card-front img {
-    width: 80%; /* Reduce image dimensions */
-    height: auto;
-    background-color: #F5F5F5;
-    background-size: cover;
-}
-
-.business-unit-item:nth-child(3) .card {
-    background: #f5f5f5; /* Background color for the card */
-}
-
-.business-unit-item:nth-child(3) .card-front img {
-    max-height: 70%; /* Adjust image height */
-    width: auto; /* Maintain natural width */
-    object-fit: contain; /* Prevent stretching */
     position: absolute;
-    bottom: 0; /* Align image base with the card base */
-    left: 47%; /* Center horizontally */
+    bottom: 30%; /* Adjust to move text higher or lower */
+    left: 50%;
+    top: 3%;
     transform: translateX(-50%);
-}
-
-.business-unit-item:nth-child(3) .card-front {
-    justify-content: flex-start; /* Align content to the top */
-}
-
-.business-unit-item:nth-child(3) .card-content {
+    width: 80%;
     text-align: left;
-    padding: 0.5rem; /* Adjust padding as needed */
-    margin-top: 0; /* Add margin to create space between content and image */
+    color: #000;
+    z-index: 10; /* Ensure it's above the image */
 }
 
-.business-unit-item:nth-child(3) .card-content h3 {
+/* Make the image cover the entire card */
+.business-unit-item:nth-child(2) .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+}
+
+/* Header Style */
+.business-unit-item:nth-child(2) .card-content .title {
+    font-size: 1.5rem;
     font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+/* Subheading Style */
+.business-unit-item:nth-child(2) .card-content p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Button Style */
+.business-unit-item:nth-child(2) .card-content .button {
+    background: #5a24be;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: capitalize;
+    color: white;
     margin-top: 0;
+}
+
+
+
+@media (max-width: 768px) {
+    /* Target only the first card */
+    .business-carousel .carousel-cell:first-child .card {
+        height: 420px; /* Keep full height */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+        background-color: #D9D9D9;
+        padding: 1rem;
+    }
+
+    /* Adjust the image position */
+    .business-carousel .carousel-cell:first-child .card .image {
+        position: absolute;
+        bottom: -13px; /* Ensures it touches the base */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Reduce image size while keeping it at the bottom */
+    .business-carousel .carousel-cell:first-child .card .image img {
+        width: 55%; /* Adjust for better fit */
+        max-height: 50%; /* Keep proportions */
+        object-fit: contain;
+        bottom: 0;
+    }
+
+    /* Shift the text upwards */
+    .business-carousel .carousel-cell:first-child .card-content {
+        text-align: left;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        z-index: 2;
+        margin-bottom: 5rem; /* Moves text up */
+    }
+
+    /* Style the title */
+    .business-carousel .carousel-cell:first-child .card-content .title {
+        font-weight: bold;
+        font-size: 1rem;
+        color: #333;
+        margin-bottom: 0.5rem; /* Reduce gap below title */
+    }
+
+    /* Adjust the subheading */
+    .business-carousel .carousel-cell:first-child .card-content p {
+        font-size: 0.8rem;
+        line-height: 1.4;
+        color: #555;
+        margin-bottom: 0.5rem;
+        position: relative;
+        top: -5px; /* Moves subheading up */
+    }
+
+    /* Button adjustments */
+    .business-carousel .carousel-cell:first-child .card-content .button {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        background-color: #5a24be;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        text-align: center;
+        position: relative;
+        margin-top: -15px; /* Moves button up */
+    }
+
+    /* Remove underline on hover */
+    .business-carousel .carousel-cell:first-child .card-content .button:hover {
+        text-decoration: none;
+        background-color: #4a1ea6;
+    }
+}
+
+/* Target the second card specifically */
+.business-carousel .carousel-cell:nth-child(2) .card {
+    position: relative;
+    background-color: #D9D9D9; /* Background color */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Push text to the bottom */
+    padding: 1.5rem;
+}
+
+/* Make the image cover the entire card */
+.business-carousel .carousel-cell:nth-child(2) .card .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fully fills the card without distortion */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Push the image to the background */
+}
+
+/* Style the text container */
+.business-carousel .carousel-cell:nth-child(2) .card .card-content {
+    position: relative;
+    z-index: 2; /* Ensure text is above the image */
+    color: white; /* Make text stand out */
+    text-align: left; /* Align text properly */
+    max-width: 80%;
+}
+
+/* Style the title */
+.business-carousel .carousel-cell:nth-child(2) .card .title {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Adjust subheading */
+.business-carousel .carousel-cell:nth-child(2) .card p {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+/* Style the button */
+.business-carousel .carousel-cell:nth-child(2) .card .button {
+    background-color: #5a24be; /* Purple button */
+    color: white;
+    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none; /* Remove underline */
+    display: inline-block;
+    border-radius: 5px;
+}
+
+/* Adjust for Mobile View */
+@media (max-width: 768px) {
+    .business-carousel .carousel-cell:nth-child(2) .card {
+        padding: 1rem;
+        justify-content: flex-start;
+    }
+
+    .business-carousel .carousel-cell:nth-child(2) .card .card-content {
+        max-width: 90%;
+        text-align: left;
+    }
+
+    .business-carousel .carousel-cell:nth-child(2) .card .title {
+        font-size: 1.25rem;
+    }
+
+    .business-carousel .carousel-cell:nth-child(2) .card p {
+        font-size: 0.9rem;
+    }
+
+    .business-carousel .carousel-cell:nth-child(2) .card .button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Target the third card */
+.business-unit-item:nth-child(3) .card {
+    background-color: #F5F5F5; /* Same background as the first card */
+    position: relative;
+}
+
+/* Image Styling */
+.business-unit-item:nth-child(3) .card figure {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Ensures the image touches the bottom */
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+.business-unit-item:nth-child(3) .card img {
+    max-height: 60%; /* Adjusted to match first card */
+    width: auto;
+    object-fit: contain;
+    bottom: 5px;
+}
+
+/* Text Content Styling */
+.business-unit-item:nth-child(3) .card-content {
+    position: absolute;
+    top: 2%;
+    left: 10%;
+    text-align: left;
+    width: 80%;
+}
+
+.business-unit-item:nth-child(3) .card-content .title {
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 
 .business-unit-item:nth-child(3) .card-content p {
-    margin-top: -0.75rem;
-    margin-bottom: 0.25rem; /* Adjust margin as needed */
-    font-size: 0.875rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
 }
 
-.business-unit-item:nth-child(3) .learn-more-btn {
-    display: inline-block;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-    background-color: #5a24be;
-    color: #fff;
-    text-decoration: none;
+/* Button Styling */
+.business-unit-item:nth-child(3) .card-content .button {
+    background: #5a24be;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
     border-radius: 5px;
-    margin-top: 0.5rem;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: capitalize;
 }
 
-.business-unit-item:nth-child(3) .learn-more-btn:hover {
-    background-color: #5a24be;
+@media (max-width: 768px) {
+    /* Target the third card */
+    .business-carousel .carousel-cell:nth-child(3) .card {
+        background-color: #F5F5F5;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 1rem;
+    }
+
+    /* Text Content Styling */
+    .business-carousel .carousel-cell:nth-child(3) .card-content {
+        text-align: left;
+        margin-bottom: 1rem;
+
+    }
+
+    .business-carousel .carousel-cell:nth-child(3) .card-content .title {
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+
+    .business-carousel .carousel-cell:nth-child(3) .card-content p {
+        font-size: 0.9rem;
+        line-height: 1.2;
+    }
+
+    /* Button */
+    .business-carousel .carousel-cell:nth-child(3) .card-content .button {
+        background: #5a24be;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 5px;
+        text-decoration: none;
+        display: inline-block;
+        text-transform: capitalize;
+        margin-top: -10px;
+    }
+
+    /* Image Styling */
+    .business-carousel .carousel-cell:nth-child(3) .card figure {
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        top: 150px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 100%;
+        width: 100%;
+    }
+
+    .business-carousel .carousel-cell:nth-child(3) .card img {
+        max-height: 70%;
+        width: auto;
+        object-fit: contain;
+    }
 }
 
-/* Product Section Styles */
-.products {
+/* Base hidden state */
+.animate {
+    opacity: 0;
+    transition: all 0.8s ease-out;
+}
+
+/* Slide in from bottom */
+.slide-in-up {
+    transform: translateY(50px); /* Start off-screen below */
+}
+
+/* When in viewport, make them visible */
+.animate.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* Products Section Styling */
+.products-section {
     padding: 2rem 0;
-    background: #fff;
 }
 
-.product-grid {
+.products-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 columns */
-    grid-template-rows: repeat(3, 1fr); /* 3 rows */
-    gap: 0.5rem; /* Adjust the gap between items */
-    max-width: 1200px;
-    margin: 0 auto;
+    gap: 10px;                             /* Space between cards */
 }
 
-.product-item {
-    background: #f9f9f9;
-    padding: 1rem;
-    text-align: center;
+.product-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    aspect-ratio: 1 / 1; /* Ensures the item is a perfect square */
-    position: relative; /* Ensure the overlay covers the entire square */
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 0;                      /* Sharp corners */
+    aspect-ratio: 1 / 1;                   /* Makes the card a perfect square */
+    overflow: hidden;                      /* Prevent content overflow */
 }
 
-.product-item img {
-    max-width: 100%; /* Ensure the image does not exceed the container width */
-    max-height: 100%; /* Ensure the image does not exceed the container height */
-    height: auto; /* Maintain aspect ratio */
-    background: none; /* Ensure the image does not have a background color */
+.product-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
 }
 
-.product-item h3 {
-    margin: 1rem 0 0.5rem;
+.card-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 
-.product-item p {
-    margin: 0 0 1rem;
+/* Responsive Design */
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr); /* Maintain 2x3 structure on mobile */
+    }
 }
 
-.product-item:nth-child(1) {
-    background: #000; /* Black background for the first item */
-    color: #fff; /* White text color for better contrast */
+.square-1 {
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border: none;
 }
 
-.product-item:nth-child(1) .logo {
-    width: 8%; /* Further reduce width */
-    height: auto; /* Maintain aspect ratio */
-    margin: 0; /* Center the logo horizontally and add space below */
-}
-
-.product-item:nth-child(1) .logo-heading {
+.square-1 .logo-heading {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.2rem; /* Space between logo and heading */
+    gap: 8px; /* Reduced gap between logo and text */
+    margin-bottom: 8px; /* Adjusted spacing */
 }
 
-.product-item:nth-child(1) h3 {
-    margin: 0; /* Remove margin */
+.square-1 .logo {
+    width: 35px; /* Reduced logo size */
+    height: 35px;
+    object-fit: contain;
 }
 
-.product-item:nth-child(1) p {
-    margin: 0.25rem 0; /* Adjust margin to move subheading up */
-    margin-top: -12rem;
-    font-size: 0.8rem; /* Set font size for subheading */
+.square-1 .title {
+    font-size: 16px; /* Reduced font size for 'Card' text */
+    font-weight: bold;
 }
 
-.product-item:nth-child(1) .bottom-image {
-    width: 85%; /* Increase width */
-    height: auto; /* Maintain aspect ratio */
-    margin-top: 0.5rem; /* Push the image to the bottom */
-    align-self: center; /* Center the image horizontally */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Add shadow for reflection effect */
-    transform: translateY(-90px); /* Slightly move the image up to create reflection effect */
+.square-1 .subheading {
+    font-size: 10px; /* Reduced subheading font size */
+    text-align: center;
+    margin: 8px 0;
+    line-height: 1.3;
 }
 
+.square-1 .card-image-1 {
+    width: 75%;
+    height: auto;
+    object-fit: cover;
+    margin-top: 10px;
+}
 
-.product-item:nth-child(2) {
-    background: #D9D9D9; /* Background color */
-    color: #333; /* Text color */
+/* Hide arrow icons on large screens */
+
+
+
+/* Adjustments for Large Screens */
+@media (min-width: 1024px) {
+    .square-1 {
+        justify-content: flex-start; /* Align content to the top */
+        padding-top: 10px; /* Reduced top padding for a tighter shift */
+    }
+
+    .square-1 .logo-heading {
+        margin-top: -10px; /* Adjust this value to push the block upward */
+        margin-bottom: 4px; /* Reduce space below the logo */
+    }
+
+    .square-1 .title {
+        position: relative;
+        top: 5px; /* Moves the title (e.g., "Card") down a bit to align with the logo */
+        font-size: 20px; /* Ensure font size remains readable; adjust if needed */
+    }
+
+    .square-1 .subheading {
+        margin-bottom: 8px; /* Tighter space below the subheading */
+        font-size: 14px;
+        font-weight: normal;
+        font-family: 'Poppins', sans-serif;
+        margin-top: -1px;
+    }
+
+    .square-1 .card-image-1 {
+        margin-top: auto; /* Keep the image towards the bottom */
+        /* Shift the image up by 10px and scale it slightly larger (105%) */
+        transform: translateY(-20px) scale(0.75);
+        /* Ensure the image fills its container appropriately */
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      /* Add a reflection effect beneath the image */
+        -webkit-box-reflect: below 0px linear-gradient(transparent, transparent 50%, rgba(255,255,255,0.3));
+    }
+
+    /* Button container styling */
+    .square-1 .button-container {
+        margin-top: 1px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+      
+      /* Button styling */
+      .square-1 .button-container .button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 20px;      /* Sharp edges */
+        cursor: pointer;
+        margin-top: 40px;
+      }
+      
+      /* Specific styling for each button */
+      .square-1 .button-container .learn-more {
+        background-color: #5a24be;
+        color: #fff;
+      }
+      
+      .square-1 .button-container .join-waitlist {
+        background-color: #ffff;
+        color: #0d0101;
+        border: 2px solid #5A24BE;
+      }
+}
+
+@media (max-width: 768px) {
+    /* Reduce logo size */
+    .square-1 .logo {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
+
+    .square-1 .logo-heading {
+        margin-top: -20px;  /* Adjust this value as needed */
+    }
+  
+    /* Shift the "Card" header text down slightly and reduce its font size */
+    .square-1 .logo-heading .title {
+      position: relative;
+      top: 5px;       /* Moves the title downward */
+      font-size: 14px; /* Reduced font size */
+    }
+  
+    /* Reduce the subheading font size and adjust line height */
+    .square-1 .subheading {
+      font-size: 8px;
+      line-height: 1.2;
+      margin-top: -4px;
+    }
+
+    .mobile-icon img {
+        width: 15px !important;  /* Force smaller width */
+        height: auto !important;  /* Maintain aspect ratio */
+        display: block;  /* Ensure proper rendering */
+        margin: 0 auto;  /* Center if needed */
+    }
+    .button-container,
+    .button { /* This removes all button elements */
+        display: none !important;
+    }
+
+    /* Show the clickable image */
+    .mobile-icon {
+        display: block;
+        width: 40px; /* Adjust size */
+        height: 40px;
+        margin-top: 10px;
+    }
+
+    .mobile-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    /* Button styling */
+    .square-1 .button-container .button {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.5rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 20px;      /* Sharp edges */
+        cursor: pointer;
+        margin-top: 40px;
+      }
+      
+      /* Specific styling for each button */
+      .square-1 .button-container .learn-more {
+        background-color: #5a24be;
+        color: #fff;
+      }
+      
+      .square-1 .button-container .apply-now {
+        background-color: #ffff;
+        color: #0d0101;
+        border: 2px solid #5A24BE;
+      }
+  
+    /* Shift the image up and add a reflection effect */
+    .square-1 .card-image-1 {
+      display: block;
+      width: 100%;
+      transform: translateY(-2px) scale(1); /* Moves image up 20px and scales it */
+      -webkit-box-reflect: below 0px linear-gradient(transparent, transparent 50%, rgba(255,255,255,0.3));
+    }
+  }
+
+ /* General Styles for Square 2 */
+.square-2 {
+    background-color: #ffffff;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Align content to the top */
-    align-items: center; /* Center content horizontally */
-    text-align: center;
-    padding: 1rem;
-    position: relative;
-}
-
-.product-item:nth-child(2) h3 {
-    margin: 1rem 0 0.5rem; /* Add margin to the top and bottom */
-    font-size: 1.2rem; /* Reduce font size for heading */
-}
-
-.product-item:nth-child(2) p {
-    margin: 0 0 1rem; /* Add margin to the bottom */
-    font-size: 0.8rem; /* Reduce font size for subheading */
-}
-
-.product-item:nth-child(2) img.bottom-image {
-    max-width: 80%; /* Further reduce width */
-    max-height: 80%; /* Further reduce height */
-    height: auto; /* Maintain aspect ratio */
-    margin-top: auto; /* Push the image to the bottom */
-    align-self: center; /* Center the image horizontally */
-    background: none; /* Ensure the image does not have a background color */
-}
-
-
-.product-item:nth-child(3) {
-    background: rgba(64, 190, 36, 0.5); /* Green background with 50% opacity */
-    color: #fff; /* White text color for better contrast */
-    background: #f9f9f9; /* Background color */
-    color: #333; /* Text color */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Align content to the top */
-    align-items: center; /* Center content horizontally */
-    text-align: center;
-    padding: 1rem;
-    position: relative;
-}
-
-
-.product-item:nth-child(3) .image-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%; /* Ensure the container covers the entire square */
-    overflow: hidden; /* Ensure the image does not overflow */
-}
-
-.product-item:nth-child(3) .image-container img {
-    width: 100%;
-    height: 100%; /* Ensure the image covers the entire container */
-    object-fit: cover; /* Ensure the image covers the container without distortion */
-}
-
-.product-item:nth-child(3) .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
     width: 100%;
     height: 100%;
-    background-color: #5a24be;
-    opacity: 0.3; /* 70% opacity */
-    z-index: 2; /* Ensure the overlay is on top of the image */
+    position: relative;
+
+    /* No shadow and curved edges */
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.square-2 .product-content {
+    text-align: center;
+    margin-top: -90px;
+}
+
+.square-2 .title.is-4 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+    margin-top: -6px;
+}
+
+.square-2 p {
+    font-size: 14px;
+    color: #555;
+    margin-top: -4px;
+    line-height: 1.4;
+}
+
+/* Adjusted Image Styling */
+.square-2 .card-image-2 {
+    width: 80%;                 /* Increased size */
+    max-width: 250px;           /* Slightly larger */
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    margin-top: -10px;          /* Shifted image upward */
+}
+
+@media (min-width: 1024px) {
+    /* Increase heading and subheading fonts and adjust margins */
+    .square-2 .title.is-4 {
+      font-size: 20px;       /* Increased heading font size */
+      margin-top: 50px;     /* Adjust vertical alignment */
+    }
+  
+    .square-2 p {
+      font-size: 15px;       /* Increased subheading font size */
+      margin-top: 5px;     /* Moves subheading up */
+      line-height: 1.5;
+    }
+    
+    /* Increase the image size and shift it up a bit */
+    .square-2 .card-image-2 {
+      width: 90%;
+      max-width: 270px;      /* Increase max width for a larger image */
+      height: auto;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+      margin-top: -20px;     /* Push the image upward */
+    }
+    
+    /* Button container styling */
+    .square-2 .button-container {
+      margin-top: 1px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    
+    /* Button styling */
+    .square-2 .button-container .button {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 20px;      /* Sharp edges */
+      cursor: pointer;
+    }
+    
+    /* Specific styling for each button */
+    .square-2 .button-container .learn-more {
+      background-color: #5a24be;
+      color: #fff;
+    }
+    
+    .square-2 .button-container .join-waitlist {
+      background-color: #ffff;
+      color: #0d0101;
+      border: 1px solid #5A24BE;
+    }
+  }
+  
+
+
+@media (max-width: 768px) {
+    /* Adjust the title (header) */
+    .square-2 .title.is-4 {
+        font-size: 10px;
+        margin-top: 70px;  /* Positive margin shifts the title down */
+    }
+
+    /* Adjust the subheading */
+    .square-2 p {
+        font-size: 6px;
+        margin-top: 1px;  /* Positive margin shifts the subheading down */
+    }
+
+    /* Adjust the image */
+    .square-2 .card-image-2 {
+        max-width: 70px;       
+        margin-top: -20px;   /* Positive margin shifts the image down */
+        display: block;
+        visibility: visible;
+    }
+
+    /* Button styling */
+    .square-2 .button-container .button {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.5rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 10px;  /* Sharp edges */
+        cursor: pointer;
+        margin-top: -15px;  /* Shifts the button down */
+        position: relative;
+        top: -15px !important;
+    }
+      
+    /* Specific styling for each button */
+    .square-2 .button-container .learn-more {
+        background-color: #5a24be;
+        color: #fff;
+    }
+      
+    .square-2 .button-container .join-waitlist {
+        background-color: #ffff;
+        color: #0d0101;
+        border: 0.5px solid #5A24BE;
+    }
+}
+
+.square-3 {
+    background-color: #5A24BE;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Align content to the top */
-    align-items: center; /* Center content horizontally */
+    overflow: hidden;
+    position: relative;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+/* Position the product content as an overlay near the top */
+.square-3 .product-content {
+    position: absolute;
+    top: 1%;
+    left: 10%;
+    width: 80%;
+    z-index: 2;
     text-align: center;
+    color: #ffffff;
+    font-size: 10px;
+}
+
+/* Styling for Square 3 Heading */
+.square-3 .product-content .title.is-4 {
+    color: #ffffff;               /* White text color */
+    font-size: 20px;              /* Adjust heading size */
+    font-weight: bold;            /* Make the heading stand out */
+    margin-bottom: 5px;           /* Space below heading */
+}
+
+/* Styling for Square 3 Subheading (Paragraph) */
+.square-3 .product-content p {
+    color: #ffffff;               /* White text color */
+    font-size: 14px;              /* Adjust subheading size */
+    line-height: 1.4;             /* Improve readability */
+    margin-top: 5px;              /* Space above the paragraph */    
+}
+
+/* Basic typography for title and paragraph */
+.square-3 .title.is-4 {
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.square-3 p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* Button container and button styling */
+.square-3 .button-container {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+.square-3 .button-container .button {
+    padding: 0.3rem 0.7rem;   /* Reduced padding for smaller size */
+    font-size: 0.85rem;   
+    text-transform: uppercase;
     color: #fff;
-    padding: 1rem;
+    text-decoration: none;
+    border: none;
+    border-radius: 20px; /* sharp edges */
+    cursor: pointer;
+    margin-top: -10px;
+}
+.square-3 .button-container .learn-more {
+    background-color: #5a24be;
+    border:1px solid #ffffff;
+}
+.square-3 .button-container .join-waitlist {
+    background-color: #ffffff;
+    color: #5A24BE;
+    border: 2px solid #fff;
 }
 
-.product-item:nth-child(3) .overlay h3 {
-    font-size: 1.5rem; /* Reduce font size for heading */
+/* Image styling – placed at the bottom of the card */
+.square-3 .card-image-2 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    z-index: 1;
+    margin-top: 150px; /* Increased to move the image down */
 }
 
-.product-item:nth-child(3) .overlay p {
-    font-size: 0.8rem; /* Reduce font size for paragraph */
-    text-align: center; /* Center text */
-    width: 90%; /* Adjust width to control text wrapping */
-    margin: 0; /* Remove margin */
+/* Mobile Screens (≤ 768px) */
+@media (max-width: 768px) {
+    .square-3 .product-content {
+        position: relative;
+        top: -20px !important;       /* Force content to shift up */
+        left: 5%;
+        width: 90%;
+        text-align: center;
+        color: #ffffff;
+    }
+
+    .square-3 .title.is-4 {
+        font-size: 9px !important;   /* Ensure font size is applied */
+        margin-bottom: 0px !important;
+        margin-top: -60px !important; /* Move the title further up */
+    }
+
+    .square-3 p {
+        font-size: 5px !important;    /* Ensure smaller subheading font */
+        line-height: 1.2 !important;
+        margin-bottom: 4px !important;
+        display: none;
+        margin-top: 5px !important;  /* Shift subheading further up */
+    }
+
+    .square-3 .card-image-2 {
+        max-width: 75%;         
+        margin: 60px auto 0 !important;  /* Keep image position intact */
+        display: block;
+    }
+
+    .square-3 .button-container {
+        margin-top: 8px !important;
+    }
+
+    .square-3 .button-container .button {
+        padding: 0.1rem 0.4rem;
+        font-size: 0.5rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 10px;  /* Rounded edges */
+        cursor: pointer;
+        margin-top: 9px;
+        position: relative;
+        top: -15px !important;  /* Ensures the button shifts properly */
+        display: inline-block;  /* Ensures the button retains its box shape */
+        width: auto;            /* Ensures width adjusts to content */
+        min-width: 75px;        /* Adds a minimum width for balance */
+    }
+
+    /* Specific styling for each button */
+    .square-3 .button-container .learn-more {
+        background-color: #5a24be;
+        color: #fff;
+        border: 1px solid #ffffff
+    }
+      
+    .square-3 .button-container .join-waitlist {
+        background-color: #ffff;
+        color: #5A24BE;
+        border: 0.5px solid #5A24BE;
+    }
 }
 
-.product-item:nth-child(4) {
-    background: #40be24; /* Green background */
-    color: #fff; /* White text color for better contrast */
+/* Square 4 - Large Screens */
+.square-4 {
+    position: relative;
+    overflow: hidden;
+    background-color: #40BE24;
+    text-align: center;
+    padding: 20px;
+}
+
+.square-4 .product-content {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    color: #40BE24;  /* CallMed brand color */
+    width: 80%;
+    margin-top: -60px;
+}
+
+.square-4 .title.is-4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.square-4 p {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #ffffff;
+}
+
+/* Image Styling */
+.square-4 .card-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: auto; /* Keep the image towards the bottom */
+        /* Shift the image up by 10px and scale it slightly larger (105%) */
+    transform: translateY(-20px) scale(0.75);
+        /* Ensure the image fills its container appropriately */
+}
+
+/* Buttons Styling */
+.square-4 .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.square-4 .button {
+    padding: 0.5rem 1rem;
+    background-color: #5A24BE;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.3s ease;
+    text-decoration: none;
+}
+
+.square-4 .button:hover {
+    background-color: #3e1a8c;
+}
+
+/* "Buy Gift Card" Button with White Background */
+.square-4 .join-waitlist {
+    background-color: #ffffff;
+    color: #5A24BE;
+}
+
+/* Square 4 - Mobile Screens (≤ 768px) */
+@media (max-width: 768px) {
+    .square-4 .product-content {
+        top: 5%;
+        left: 5%;
+        transform: none;
+        width: 90%;
+        text-align: center;
+        color: #ffffff; /* White text for contrast */
+        margin-top: -10px;
+    }
+
+    .square-4 .title.is-4 {
+        font-size: 10px;
+        margin-bottom: 4px;
+    }
+
+    .square-4 p {
+        font-size: 8px;        /* Smaller font size for the subheading */
+        line-height: 1.2;      /* Tighter line height */
+        margin-bottom: 6px;
+    }
+
+    /* Shifting the image down */
+    /* Square 4 - Mobile Screens (≤ 768px) */
+@media (max-width: 768px) {
+    .square-4 .card-image {
+        max-width: 100%;        /* Increase the width to occupy more space */
+        height: auto;           /* Maintain aspect ratio */
+        margin: 60px auto 0;    /* Keeps the image shifted down */
+        display: block;
+        border-radius: 8px;
+        transform: scale(1);  /* Optional: Slightly enlarges the image by 10% */
+    }
+}
+
+
+    .square-4 .button-container .button {
+        padding: 0.1rem 0.4rem;
+        font-size: 0.5rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 10px;  /* Rounded edges */
+        cursor: pointer;
+        margin-top: 9px;
+        position: relative;
+        top: -15px !important;  /* Ensures the button shifts properly */
+        display: inline-block;  /* Ensures the button retains its box shape */
+        width: auto;            /* Ensures width adjusts to content */
+        min-width: 75px; 
+    }
+}
+
+/* Square 5 Container */
+.product-card.square-5 {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;          /* Maintains a perfect square */
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Background Image Cover */
+.product-card.square-5 .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;                /* Fills the container */
+    object-fit: cover;           /* Ensures the image covers fully */
+    z-index: 1;
+}
+
+/* Overlay */
+.product-card.square-5 .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;                /* Matches the square’s full height */
+    background-color: rgba(64, 190, 36, 0.5); /* Green overlay with 50% opacity */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     text-align: center;
-    padding: 1rem;
+    padding: 20px;
+    padding-top: 40px;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+/* Title and Subheading */
+.product-card.square-5 .title.is-4 {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.product-card.square-5 p {
+    font-size: 1rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    max-width: 600px;
+}
+
+/* 🖼️ Shared Button Styles */
+.product-card.square-5 .button {
+    padding: 0.6rem 1.5rem;       /* Adjust button size */
+    font-size: 1rem;              /* Font size */
+    border-radius: 20px;           /* Rounded corners */
+    margin: 5px;                  /* Space between buttons */
+    border: none;                 /* Remove borders */
+    cursor: pointer;              /* Pointer on hover */
+    transition: all 0.3s ease;    /* Smooth hover effects */
+    display: inline-block;        /* Ensure proper alignment */
+    text-decoration: none;        /* Remove underline */
+    font-weight: normal;            /* Make text bold */
+}
+
+/* 🎯 Learn More Button Styles */
+.product-card.square-5 .learn-more-btn {
+    background-color: #5a24be;     /* White background */
+    color: #ffffff;                /* Green text */    /* Green border */
+}
+
+.product-card.square-5 .learn-more-btn:hover {
+    background-color: #5A24BE;     /* Green background on hover */
+    color: #ffffff;                /* White text on hover */
+    transform: translateY(-3px);   /* Slight upward lift */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Subtle shadow */
+}
+
+/* 🎁 Buy Gift Card Button Styles */
+.product-card.square-5 .join-waitlist-btn {
+    background-color: #ffffff;     /* Green background */
+    color: #5A24BE;                /* White text */     /* White border */
+}
+
+.product-card.square-5 .buy-now-btn:hover {
+    background-color: #ffffff;     /* White background on hover */
+    color: #5A24BE;                /* Green text on hover */
+    transform: scale(1.05);        /* Slight zoom effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);  /* Stronger shadow */
+}
+
+
+@media (max-width: 768px) {
+    .product-card.square-5 {
+        border: none;              /* Remove red border */
+        background-color: none;    /* Remove yellow background */
+        min-height: auto;          /* Reset the height */
+        height: auto;               /* Full screen height */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;     /* Center content vertically */
+        align-items: center;         /* Center content horizontally */
+        padding: 10px;               /* Add some spacing */
+        box-sizing: border-box;
+    }
+
+    .product-card.square-5 .image-container,
+    .product-card.square-5 .overlay,
+    .product-card.square-5 .button {
+        border: none;              /* Remove blue, green, black borders */
+    }
+    .product-card.square-5 .overlay {
+        border: none;         /* Check if the overlay exists */
+    }
+
+    .product-card.square-5 .button {
+        border: 2px solid black;         /* Check if the buttons exist */
+    }
+
+    .product-card.square-5 .overlay .title.is-4 {
+        font-size: 0.9rem !important;  /* Force the font size to reduce */
+        margin-bottom: 6px;          /* Gap between title and subheading */
+        margin-top: -20px;
+    }
+
+    .product-card.square-5 p {
+        font-size: 0.55rem;           /* Smaller subheading */
+        margin-bottom: 10px;          /* Gap between subheading and buttons */
+        display: none;
+    }
+
+    .product-card.square-5 .button-container .button {
+        padding: 5px 10px;          /* Reduce padding for smaller buttons */
+        font-size: 0.7rem;           /* Smaller text size */
+        border-radius: 20px;          /* Slightly rounded corners */
+        margin: 3px;                 /* Space between buttons */
+    }
+    
+    .product-card.square-5 .button-container {
+        display: flex;
+        gap: 5px;                    /* Controls the gap between buttons */
+        justify-content: center;     /* Center the buttons horizontally */
+    }
+}
+
+/* Square 5 Container */
+.product-card.square-6 {
     position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;          /* Maintains a perfect square */
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
-.product-item:nth-child(4) h3 {
-    margin: 1rem 0 0.5rem; /* Remove margin */
-    font-size: 1.2rem;
-}
-
-.product-item:nth-child(4) p {
-    margin: 0 0 1rem/* Adjust margin to move subheading up */
-
-}
-
-.product-item:nth-child(4) img {
-    width: 85%; /* Increase width */
-    height: auto; /* Maintain aspect ratio */
-    margin-top: auto; /* Push the image to the bottom */
-    align-self: center; /* Center the image horizontally */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Add shadow for reflection effect */
-    transform: translateY(0); /* Ensure the image is at the bottom */
-    background: none;
-}
-
-
-.product-item:nth-child(5) {
-    background: #f1f2f1; /* Purple background with 50% opacity */
-    color: #fff; /* White text color for better contrast */
-    position: relative;
-}
-
-.product-item:nth-child(5) .image-container {
+/* Background Image Cover */
+.product-card.square-6 .background-image {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%; /* Ensure the container covers the entire square */
-    overflow: hidden; /* Ensure the image does not overflow */
+    height: 100%;                /* Fills the container */
+    object-fit: cover;           /* Ensures the image covers fully */
+    z-index: 1;
 }
 
-.product-item:nth-child(5) .image-container img {
-    width: 100%;
-    height: 100%; /* Ensure the image covers the entire container */
-    object-fit: cover; /* Ensure the image covers the container without distortion */
-}
-
-.product-item:nth-child(5) .overlay {
+/* Overlay */
+.product-card.square-6 .overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background-color: #40be24;
-    opacity: 0.7; /* 70% opacity */
-    z-index: 2; /* Ensure the overlay is on top of the image */
+    height: 100%;                /* Matches the square’s full height */
+    background-color: rgba(90, 36, 190, 0.5); /* Green overlay with 50% opacity */
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Align content to the top */
-    align-items: center; /* Center content horizontally */
+    justify-content: flex-start;
+    align-items: center;
     text-align: center;
-    color: #fff;
-    padding: 1rem;
+    padding: 20px;
+    padding-top: 40px;
+    z-index: 2;
+    box-sizing: border-box;
 }
 
-.product-item:nth-child(5) .overlay h3 {
-    font-size: 1.5rem; /* Reduce font size for heading */
-    margin-top: 1rem; /* Add margin to the top */
+/* Title and Subheading */
+.product-card.square-6 .title.is-4 {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 10px;
 }
 
-.product-item:nth-child(5) .overlay p {
-    font-size: 0.8rem; /* Reduce font size for paragraph */
-    text-align: center; /* Center text */
-    width: 90%; /* Adjust width to control text wrapping */
-    margin: 0.5rem 0 0; /* Add margin to the top */
+.product-card.square-6 p {
+    font-size: 1rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    max-width: 600px;
+}
+
+/* 🖼️ Shared Button Styles */
+.product-card.square-6 .button {
+    padding: 0.6rem 1.5rem;       /* Adjust button size */
+    font-size: 1rem;              /* Font size */
+    border-radius: 20px;           /* Rounded corners */
+    margin: 5px;                  /* Space between buttons */
+    border: none;                 /* Remove borders */
+    cursor: pointer;              /* Pointer on hover */
+    transition: all 0.3s ease;    /* Smooth hover effects */
+    display: inline-block;        /* Ensure proper alignment */
+    text-decoration: none;        /* Remove underline */
+    font-weight: normal;            /* Make text bold */
+}
+
+/* 🎯 Learn More Button Styles */
+.product-card.square-6 .learn-more-btn {
+    background-color: #ffffff;     /* White background */
+    color: #5A24BE;                /* Green text */    /* Green border */
+}
+
+.product-card.square-6 .learn-more-btn:hover {
+    background-color: #5A24BE;     /* Green background on hover */
+    color: #ffffff;                /* White text on hover */
+    transform: translateY(-3px);   /* Slight upward lift */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Subtle shadow */
+}
+
+/* 🎁 Buy Gift Card Button Styles */
+.product-card.square-6 .buy-now-btn {
+    background-color: #5A24BE;     /* Green background */
+    color: #ffffff;                /* White text */     /* White border */
+}
+
+.product-card.square-6 .buy-now-btn:hover {
+    background-color: #ffffff;     /* White background on hover */
+    color: #5A24BE;                /* Green text on hover */
+    transform: scale(1.05);        /* Slight zoom effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);  /* Stronger shadow */
+}
+
+/* Mobile Icon (Hidden on Large Screens) */
+.square-6 .mobile-icon {
+    display: none;
+    font-size: 36px;
+    color: #ffffff;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* ============================
+   Media Queries for Mobile View
+   ============================ */
+   @media (max-width: 768px) {
+    .product-card.square-6 .title.is-4 {
+        font-size: 0.9rem !important; /* Force smaller title size */
+        margin-bottom: 6px; /* Adjust spacing */
+        margin-top: -20px; /* Move title up */
+    }
+
+    .product-card.square-6 p {
+        font-size: 0.55rem !important; /* Force smaller subheading size */
+        margin-bottom: 10px;
+        margin-top: -8px;
+    }
+}
+
+
+    /* Hide Buttons, Show Icon */
+    .square-6 .button-container {
+        display: none; /* Hide buttons on mobile */
+    }
+
+    .square-6 .mobile-icon {
+        display: block; /* Show arrow icon on mobile */
+    }
+
+    /* Initial state: Hidden and slightly shifted */
+.product-card {
+    opacity: 0;
+    transform: translateY(20px); /* Reduce the shift */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Slide-in effect when in view */
+.product-card.show {
+    opacity: 1 !important; /* Force visibility */
+    transform: translateY(0) !important;
 }
 
 
 
-.product-item:nth-child(6) {
-    background: rgba(248, 251, 248, 0.929); /* Green background with 92.9% opacity */
-    color: #fff; /* White text color for better contrast */
-    position: relative; /* Ensure the overlay covers the entire square */
-}
 
-.product-item:nth-child(6) .image-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%; /* Ensure the container covers the entire square */
-    overflow: hidden; /* Ensure the image does not overflow */
-}
 
-.product-item:nth-child(6) .image-container img {
-    width: 100%;
-    height: 100%; /* Ensure the image covers the entire container */
-    object-fit: cover; /* Ensure the image covers the container without distortion */
-}
 
-.product-item:nth-child(6) .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #5a24be;
-    opacity: 0.7; /* 70% opacity */
-    z-index: 2; /* Ensure the overlay is on top of the image */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Align content to the top */
-    align-items: center; /* Center content horizontally */
-    text-align: center;
-    color: #fff;
-    padding: 1rem;
-}
 
-.product-item:nth-child(6) .overlay h3 {
-    font-size: 1.5rem; /* Reduce font size for heading */
-    margin-top: 1rem; /* Add margin to the top */
-}
 
-.product-item:nth-child(6) .overlay p {
-    font-size: 0.8rem; /* Reduce font size for paragraph */
-    text-align: center; /* Center text */
-    width: 90%; /* Adjust width to control text wrapping */
-    margin: 0.5rem 0 0; /* Add margin to the top */
-}
-
-/* Text Section Styles */
-.text-section {
-    padding: 2rem 1rem;
+/* Specific Text Section Styling */
+.subscription-section {
+    padding: 2.5rem 1rem; /* Increased padding for more space */
     background: #f4f4f4;
     text-align: left; /* Align text to the left */
 }
 
-.text-content {
+.subscription-content {
     max-width: 800px;
     margin: 0 auto;
 }
 
-.text-content h2 {
+.subscription-content h2 {
     margin-bottom: 1rem;
-    font-size: 1.5rem;
+    font-size: 1.6rem; /* Slightly larger font size for heading */
+    font-weight: 600; /* Added bold font weight for more emphasis */
     color: #333;
 }
 
-.text-content p {
-    font-size: 0.875rem;
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 1.5rem; /* Add space between paragraphs */
+.subscription-content p {
+    font-size: 0.9rem; /* Increased font size for readability */
+    color: #555; /* Darker shade for better contrast */
+    line-height: 1.7; /* Slightly increased line height for better readability */
+    margin-bottom: 1.5rem; /* Space between paragraphs */
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    .subscription-section {
+        padding: 2rem; /* Slightly reduced padding for mobile */
+    }
+    .subscription-content h2 {
+        font-size: 1.2rem; /* Adjust heading size for smaller screens */
+    }
+    .subscription-content p {
+        font-size: 0.9rem; /* Adjust font size for paragraphs */
+        line-height: 1.7; /* Consistent line height for mobile */
+    }
 }
 
 
 
-/* Divider Line Styles */
-.divider {
-    border: none;
-    border-top: 1px solid #ccc;
-    margin: 2rem 0;
-}
-
-/* Footer Styles */
-footer {
-    background: #F5F5F5;
-    color: #0d0202;
-    padding: 2rem 1rem;
-}
-
+/* Footer Section Styling */
 .footer-container {
     display: flex;
-    justify-content: space-between;
-    padding: 0;
-    background-color: #f1f1f1;
-    margin-left: 2rem;
-}
-
-.footer-content {
-    display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
+    justify-content: space-between;
+    padding: 2rem 1rem;
+    background-color: #fff; /* Changed background color to white */
+    color: #333; /* Changed text color to dark */
+    gap: 1rem; /* Added gap between columns */
 }
 
 .footer-column {
-    flex: 1;
-    margin-bottom: 0 1rem;
+    flex: 1 1 200px;
+    margin: 0; /* Removed margin to avoid gaps */
+    padding: 1rem; /* Added padding for spacing */
+    box-sizing: border-box; /* Ensures padding is included in the width */
 }
-
-
-.footer-column .callmed-store {
-    margin-top: -10px; /* Adjust this value as needed */
-}
-
 
 .footer-column h4 {
-    font-size: 0.8rem;
-    margin-bottom: 0.5rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #333; /* Changed heading color to dark */
+    position: relative;
+    text-decoration: none; /* Removed underline */
+    border-bottom: none; /* Ensure no border underline */
 }
 
 .footer-column ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    font-size: 0.8rem;
 }
 
 .footer-column ul li {
     margin-bottom: 0.5rem;
-    font-size: 0.8rem;
 }
 
 .footer-column ul li a {
-    text-decoration: none;
-    color: #333;
-    font-size: 0.75rem; /* Reduced font size */
+    color: #333; /* Changed link color to dark */
+    text-decoration: none; /* Removed underline */
 }
 
 .footer-column ul li a:hover {
-    text-decoration: underline;
+    text-decoration: underline; /* Underline on hover */
 }
 
-/* Specific styling for CallMed Store header */
-.footer-column h4.callmed-store {
-    margin-top: -5rem; /* Move the CallMed Store header up */
-}
-
-
-.footer-bottom {
+/* Social Media Icons */
+.social-media-icons {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    margin-top: 2rem;
-    padding: 0.5rem 0;
-    font-size: 0.8rem;
+    gap: 0.5rem;
 }
 
-.footer-text ul {
-    font-family: Inter, sans-serif;
+.social-media-icons li {
+    list-style: none;
 }
 
-.footer-divider {
+.social-media-icons li a img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Newsletter Form */
+.footer-column form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-column form input[type="email"] {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.footer-column form button {
+    padding: 0.5rem;
+    background-color: #333;
+    color: #fff;
     border: none;
-    border-top: 1px solid #ccc;
-    margin: 1rem 0;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
+.footer-column form button:hover {
+    background-color: #555;
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+    .footer-column ul {
+        display: none; /* Initially hide the list */
+    }
+
+    /* Dropdown arrow */
+    .footer-column h4::after {
+        content: '▼';
+        position: absolute;
+        right: 0;
+        font-size: 0.8rem;
+        transition: transform 0.3s;
+    }
+
+    .footer-column h4.active::after {
+        transform: rotate(180deg);
+    }
+
+    /* Show the list when the header is active */
+    .footer-column h4.active + ul {
+        display: block;
+    }
+}
+
+/* Newsletter Form */
+.newsletter-form {
+    display: flex;
+    align-items: center;
+    gap: 0; /* Remove gap between input and button */
+}
+
+.newsletter-form input[type="email"] {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px; /* Rounded corners on the left side */
+    border-right: none; /* Remove right border */
+}
+
+.newsletter-form button {
+    padding: 0.5rem 1rem;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0 4px 4px 0; /* Rounded corners on the right side */
+    border-left: none; /* Remove left border */
+    cursor: pointer;
+}
+
+.newsletter-form button:hover {
+    background-color: #555;
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+    .footer-column ul {
+        display: none; /* Initially hide the list */
+    }
+
+    /* Dropdown arrow */
+    .footer-column h4::after {
+        content: '▼';
+        position: absolute;
+        right: 0;
+        font-size: 0.8rem;
+        transition: transform 0.3s;
+    }
+
+    .footer-column h4.active::after {
+        transform: rotate(180deg);
+    }
+
+    /* Show the list when the header is active */
+    .footer-column h4.active + ul {
+        display: block;
+    }
+
+    /* Shift the newsletter part up */
+    .newsletter-section {
+        margin-top: -5rem; /* Negative margin to shift up */
+    }
+}
+    
+/* Additional Footer Content Styling */
 .additional-footer-content {
-    padding: 1rem 0;
-    background-color: #f1f1f1;
-    text-align: center;
-    font-size: 0.8rem; /* Reduced font size */
-    margin-left: 2rem; /* Shift the additional footer content to the right */
-}
-
-.more-ways-container {
+    background-color: #f4f4f4; /* Changed background color to light grey */
+    color: #333; /* Changed text color to dark */
+    padding: 1rem;
     display: flex;
-    justify-content: flex-start; /* Align items to the right */
-    align-items: center;
-    gap: 0.5rem; /* Add gap between the items */
-}
-
-.more-ways {
-    display: flex;
-    justify-content: flex-start; /* Align items to the right */
-    align-items: center;
-    gap: 0.4rem; /* Add gap between the items */
-    font-size: 0.8rem; /* Reduced font size */
-}
-
-.more-ways a {
-    color: #007bff;
-    text-decoration: none;
-    font-size: 0.8rem; /* Reduced font size */
-}
-
-
-.more-ways a:hover {
-    text-decoration: underline;
-}
-
-.shop-info {
-    font-size: 0.8rem; /* Reduced font size */
-}
-
-.shop-info a {
-    color: #5a24be;
-    text-decoration: none;
-}
-
-.shop-info a:hover {
-    text-decoration: underline;
-}
-
-.footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.1rem 0;
-    background-color: #f1f1f1;
-    font-size: 0.8rem; /* Reduced font size */
-    margin-top: -1rem;
-}
-
-.footer-left {
+    justify-content: flex-start; /* Align content to the left */
     text-align: left;
 }
 
-.footer-left a {
-    margin-left: 0.1rem; /* Add margin to the left of each link */
+.additional-footer-content, .footer-bottom {
+    display: block !important;
+    visibility: visible !important;
 }
 
-.footer-right {
-    text-align: right;
+.additional-footer-content p {
+    margin: 0;
 }
 
-.footer-right .flag {
-    width: 20px;
-    height: auto;
-    margin-left: 0.5rem;
-    vertical-align: middle; /* Align the flag vertically with the text */
+.additional-footer-content a {
+    color: #333; /* Changed link color to dark */
+    text-decoration: none; /* Removed underline */
 }
 
-.footer-bottom a {
-    color: #000102;
-    text-decoration: none;
+.additional-footer-content a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+.footer-divider {
+    border: 0;
+    height: 1px;
+    background: #ccc; /* Changed divider color to light grey */
+    margin: 1rem 0;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0; /* Reduced padding to shift up */
+    margin-top: -1rem; /* Negative margin to shift up */
     font-size: 0.8rem; /* Reduced font size */
 }
 
-.footer-bottom a:hover {
-    text-decoration: underline;
+.footer-bottom .footer-left,
+.footer-bottom .footer-right {
+    flex: 1;
 }
 
-/* Global Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.footer-bottom .footer-left {
+    white-space: nowrap; /* Prevent line breaks */
+    overflow: visible; /* Hide overflow text */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
 }
 
-body {
-    font-family: Inter, sans-serif;
-    line-height: 1.6;
+.footer-bottom .footer-right {
+    text-align: right;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
+.footer-bottom .flag {
+    width: 20px;
+    height: auto;
+    margin-left: 0.5rem;
 }
 
-/* Mobile Responsiveness */
+/* Mobile View */
 @media (max-width: 768px) {
-    .container {
-        padding: 0 0.5rem;
+    /* Remove default margin and padding */
+    .footer-column {
+        margin: 0;
+        padding: 0;
     }
 
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
+    /* Ensure headings have uniform spacing */
+    .footer-column h4 {
+        display: block;
+        position: relative;
+        margin: 0;
+        padding: 10px;
+        cursor: pointer; /* Make it clear it's clickable */
+        background-color: #f8f8f8; /* Optional: Add slight background */
+        border-bottom: 1px solid #ddd; /* Optional: Separator */
     }
 
-    .navbar ul {
-        flex-direction: column;
-        width: 100%;
+    /* Hide the list by default */
+    .footer-column ul {
+        display: none;
+        margin: 0;
+        padding: 0;
+        list-style: none;
     }
 
-    .navbar ul li {
-        margin: 0.5rem 0;
+    /* Dropdown arrow */
+    .footer-column h4::after {
+        content: '▼';
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.8rem;
+        transition: transform 0.3s;
     }
 
-    .main-content {
-        padding: 1rem 0.5rem;
+    /* Rotate arrow when active */
+    .footer-column h4.active::after {
+        transform: translateY(-50%) rotate(180deg);
+    }
+
+    /* Show list when active */
+    .footer-column h4.active + ul {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Ensure visibility of the newsletter section */
+    .newsletter-section,
+    .additional-footer-content,
+    .footer-bottom {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        height: auto !important;
+        max-height: none !important;
+        position: relative !important;
+        overflow: visible !important;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
     }
 
     .footer-container {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-left: 1rem;
+        padding-bottom: 60px;
     }
 
-    .footer-column {
-        margin: 0 0 1rem 0;
-    }
-
-    .more-ways-container {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
+    .additional-footer-content {
+        margin-top: 30px !important; /* Space it out from other elements */
+        padding-bottom: 30px !important;
     }
 
     .footer-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-top: 0;
+        padding-top: 30px !important;
     }
 
-    .footer-left, .footer-right {
-        text-align: left;
-        width: 100%;
+    /* Ensure social media icons are visible */
+    .social-media-icons {
+        display: flex !important;
+        justify-content: center;
+        gap: 10px;
+        padding: 0;
+        list-style: none;
     }
 
-    .footer-right {
-        margin-top: 1rem;
+    .social-media-icons li {
+        display: inline-block;
+    }
+
+    .social-media-icons img {
+        width: 30px; /* Keep icons properly sized */
+        height: auto;
+    }
+
+    /* Ensure additional footer content is visible */
+    .additional-footer-content {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        height: auto !important;
+    }
+
+    /* Make sure footer-bottom content is also visible */
+    .footer-bottom {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 }
