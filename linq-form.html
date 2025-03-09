@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CallMed Linq - Waitlist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 0;
+            background: #5a24be;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-buttons {
+            margin-top: 2rem;
+        }
+
+        button {
+            background: #40be24;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin: 0 1rem;
+        }
+
+        button:hover {
+            background: #40be24;
+            transform: translateY(-2px);
+        }
+
+        .waitlist-form {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            margin: 2rem auto;
+            max-width: 800px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .thank-you {
+            display: none;
+            text-align: center;
+            padding: 4rem;
+            background: white;
+            border-radius: 15px;
+            margin: 2rem auto;
+            max-width: 800px;
+        }
+
+        .conditional-field {
+            display: none;
+        }
+
+         /* Enhanced header styling */
+         header {
+            background: #5a24be;
+            padding: 5rem 0 4rem;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .value-propositions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .value-card {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .privacy-notice {
+            font-size: 0.9rem;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .loading-spinner {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: #e74c3c;
+            margin: 0.5rem 0;
+            display: none;
+        }
+
+        .success-message {
+            color: #2ecc71;
+            margin: 0.5rem 0;
+        }
+
+        .form-section {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    background: white;
+}
+
+.section-header {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #2c3e50;
+    padding: 0 1rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    width: auto;
+}
+
+.form-submit-section {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 2rem 0;
+    border-top: 1px solid #eee;
+}
+
+.health-concerns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+/* Checkbox Alignment Fix */
+.health-concerns label {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+.health-concerns input[type="checkbox"] {
+    margin: 0 0.75rem 0 0;
+    width: 18px;
+    height: 18px;
+    accent-color: #40be24; /* Use your brand color */
+}
+
+.health-concerns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.cta-buttons {
+    transition: opacity 0.3s ease;
+}
+    
+.hide-cta .cta-buttons {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Progress Indicator Styles */
+
+/* Progress Indicator Styles */
+.progress-container {
+    display: none; /* Hidden by default */
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.show-progress .progress-container {
+    display: block; /* Show when form is visible */
+}
+
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 2rem 0;
+}
+
+.connector-line {
+    position: absolute;
+    top: 20px;
+    height: 3px;
+    background: #e0e0e0;
+    transition: background 0.3s ease;
+    z-index: 0;
+}
+
+/* Connector Line Positioning */
+.connector-line:nth-child(2) { /* Between 1-2 */
+    left: calc(25% - 12.5%);
+    width: 25%;
+}
+
+.connector-line:nth-child(4) { /* Between 2-3 */
+    left: 37.5%;
+    right: 37.5%;
+}
+
+.connector-line:nth-child(6) { /* Between 3-4 */
+    left: 62.5%;
+    right: 12.5%;
+}
+
+.connector-line:last-child {
+    display: none;
+}
+
+/* Step Elements */
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+    position: relative;
+    width: 25%;
+}
+
+.step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #95a5a6;
+    transition: all 0.3s ease;
+}
+
+.step-label {
+    margin-top: 0.5rem;
+    color: #40be24;
+    font-size: 0.9rem;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Active State */
+.step.active .step-circle {
+    border-color: #40be24;
+    color: #40be24;
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(64, 190, 36, 0.2);
+}
+
+/* Completed States */
+.step.completed .step-circle {
+    background: #40be24;
+    color: white;
+    border-color: #40be24;
+}
+
+.step.completed .step-label {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.connector-line.completed {
+    background: #40be24;
+}
+
+/* Removed duplicate .progress-bar and .progress-fill styles */
+    </style>
+</head>
+<body>
+    <header>
+        
+        <div class="container">
+            <div class="hero">
+                <h1>CallMed Linq: Connecting Patients & Doctors Instantly</h1>
+                <p>Join our exclusive waitlist to be among the first to experience the future of telemedicine. Help us shape a platform that:</p>
+                
+                <div class="value-propositions">
+                    <div class="value-card">
+                        <h3>🩺 24/7 Specialist Access</h3>
+                        <p>Connect with verified doctors anytime, anywhere</p>
+                    </div>
+                    <div class="value-card">
+                        <h3>💊 Smart Medication Management</h3>
+                        <p>AI-powered prescriptions and pharmacy integration</p>
+                    </div>
+                    <div class="value-card">
+                        <h3>📱 Seamless Experience</h3>
+                        <p>HIPAA-compliant video consultations in one click</p>
+                    </div>
+                </div>
+
+                <div class="cta-buttons">
+                    <button onclick="showWaitlistForm()">Get Priority Access</button>
+                </div>
+
+                <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.9;">
+                    <strong>Why join early?</strong> Help influence development priorities and receive exclusive beta testing opportunities
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Add this progress indicator below the header -->
+    <div class="progress-container">
+        <div class="progress-steps">
+            <!-- Step 1 -->
+            <div class="step" data-step="1">
+                <div class="step-circle">1</div>
+                <div class="step-label">Basic Information</div>
+            </div>
+            <div class="connector-line"></div>
+            
+            <!-- Step 2 -->
+            <div class="step" data-step="2">
+                <div class="step-circle">2</div>
+                <div class="step-label">Medical Background</div>
+            </div>
+            <div class="connector-line"></div>
+            
+            <!-- Step 3 -->
+            <div class="step" data-step="3">
+                <div class="step-circle">3</div>
+                <div class="step-label">Health Interests</div>
+            </div>
+            <div class="connector-line"></div>
+            
+            <!-- Step 4 -->
+            <div class="step" data-step="4">
+                <div class="step-circle">4</div>
+                <div class="step-label">Your Preferences</div>
+            </div>
+        </div>
+    </div>
+
+    <form id="waitlistForm" class="waitlist-form" onsubmit="handleSubmit(event)">
+        <!-- Section 1: Basic Information -->
+        <fieldset class="form-section">
+            <legend class="section-header">Basic Information</legend>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="full_name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required>
+                </div>
+            </div>
+    
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label>Age Range</label>
+                    <select name="age_range" required>
+                        <option value="">Select</option>
+                        <option>18-25</option>
+                        <option>26-35</option>
+                        <option>36-45</option>
+                        <option>46+</option>
+                    </select>
+                </div>
+            </div>
+    
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Country</label>
+                    <input type="text" name="country" required>
+                </div>
+            </div>
+        </fieldset>
+                <!-- Section 2: Medical History -->
+    <fieldset class="form-section">
+        <legend class="section-header">Medical Background</legend>
+        <div class="form-row">
+            <div class="form-group">
+                <label>HMO Coverage?</label>
+                <select id="hmoSelect" name="hmo_coverage" required>
+                    <option value="">Select</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>How often do you visit the hospital?</label>
+                <select name="hospital_visits" required>
+                    <option value="">Select</option>
+                    <option>Monthly</option>
+                    <option>Every 3 months</option>
+                    <option>Every 6 months</option>
+                    <option>Yearly</option>
+                    <option>Only when necessary</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="hmoDetails" class="conditional-field">
+            <div class="form-group">
+                <label>If yes to HMO, please indicate provider</label>
+                <input type="text" name="hmo_provider">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Monthly Medication Spend ($)</label>
+                <input type="number" name="medication_cost" min="0" step="10" required>
+            </div>
+            <div class="form-group">
+                <label>Medication Purchase Frequency</label>
+                <select name="medication_frequency" required>
+                    <option value="">Select</option>
+                    <option>Weekly</option>
+                    <option>Monthly</option>
+                    <option>Quarterly</option>
+                    <option>As needed</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+
+             <!-- Section 3: Health Concerns -->
+    <fieldset class="form-section">
+        <legend class="section-header">Health Interests</legend>
+        <div class="form-group">
+            <label>What health concerns would you like help with?</label>
+            <div class="health-concerns">
+                <label><input type="checkbox" name="concern_chronic"> Chronic Conditions</label>
+                <label><input type="checkbox" name="concern_mental"> Mental Health</label>
+                <label><input type="checkbox" name="concern_preventive"> Preventive Care</label>
+                <label><input type="checkbox" name="concern_specialist"> Specialist Access</label>
+                <label><input type="checkbox" name="concern_medication"> Medication Management</label>
+                <label><input type="checkbox" name="concern_other"> Other</label>
+            </div>
+        </div>
+    </fieldset>
+
+    <!-- Section 4: Feedback & Preferences -->
+    <fieldset class="form-section">
+        <legend class="section-header">Your Preferences</legend>
+        <div class="form-group">
+            <label>What excites you about CallMed Linq?</label>
+            <textarea name="excitement" rows="2"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>What healthcare challenges do you face?</label>
+            <textarea name="challenges" rows="2"></textarea>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Interested in beta testing?</label>
+                <select name="beta_testing" required>
+                    <option value="">Select</option>
+                    <option>Yes</option>
+                    <option>Maybe</option>
+                    <option>No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>How did you hear about us?</label>
+                <select id="referralSource" name="referral_source" required>
+                    <option value="">Select</option>
+                    <option>Social Media</option>
+                    <option>Friend/Family</option>
+                    <option>Healthcare Provider</option>
+                    <option>Online Ad</option>
+                    <option>Other</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="privacy-notice">
+        <label>
+            By Clicking 'Submit Application' I agree to the <a href="/privacy-policy" target="_blank">Privacy Policy</a> and 
+            consent to my data being stored in accordance with GDPR regulations.
+        </label>
+    </div>
+
+    <!-- Submit Section -->
+    <div class="form-submit-section">
+        <div class="g-recaptcha" 
+             data-sitekey="YOUR_RECAPTCHA_SITE_KEY"
+             data-callback="enableSubmit"
+             data-size="invisible"></div>
+        
+        <button type="submit" id="submitBtn">
+            Submit Application
+        </button>
+        <div class="loading-spinner"></div>
+        <div id="errorContainer" class="error-message"></div>
+    </div>
+</form>
+
+            
+
+
+<div class="thank-you">
+    <h2>Thank You for Joining!</h2>
+    <p>We'll be in touch soon with your invitation.</p>
+</div>
+</div>
+        </form>
+
+        <div class="thank-you">
+            <h2>Thank You for Joining!</h2>
+            <p>We'll be in touch soon with your invitation.</p>
+        </div>
+    </div>
+
+    
+<script>
+    // Form Display and Progress Indicator Control
+function showWaitlistForm() {
+    const form = document.querySelector('.waitlist-form');
+    const container = document.querySelector('.container');
+    const progress = document.querySelector('.progress-container');
+    
+    form.style.display = 'block';
+    progress.style.display = 'block';
+    container.classList.add('show-progress');
+    window.scrollTo({ top: form.offsetTop - 100, behavior: 'smooth' });
+}
+
+function toggleWaitlist() {
+    const form = document.querySelector('.waitlist-form');
+    const progress = document.querySelector('.progress-container');
+    const container = document.querySelector('.container');
+    
+    if (form.style.display === 'none' || !form.style.display) {
+        form.style.display = 'block';
+        progress.style.display = 'block';
+        container.classList.add('show-progress');
+        window.scrollTo({ top: form.offsetTop - 100, behavior: 'smooth' });
+    } else {
+        form.style.display = 'none';
+        progress.style.display = 'none';
+        container.classList.remove('show-progress');
+    }
+}
+
+// Form Field Interactions
+document.getElementById('hmoSelect')?.addEventListener('change', function() {
+    document.getElementById('hmoDetails').style.display = 
+        this.value === 'Yes' ? 'block' : 'none';
+});
+
+document.getElementById('referralSource')?.addEventListener('change', function() {
+    document.getElementById('otherSource').style.display = 
+        this.value === 'Other' ? 'block' : 'none';
+});
+
+// Progress Tracking
+const sections = document.querySelectorAll('.form-section');
+const steps = document.querySelectorAll('.step');
+const connectors = document.querySelectorAll('.connector-line');
+
+function updateProgress() {
+    sections.forEach((section, index) => {
+        const requiredFields = section.querySelectorAll('[required]');
+        let sectionCompleted = requiredFields.length > 0; // Default to true only if there are required fields
+        
+        requiredFields.forEach(field => {
+            if (!field.value.trim() || !field.checkValidity()) {
+                sectionCompleted = false;
+            }
+        });
+
+        // Update current step and previous connector
+        if (sectionCompleted) {
+            steps[index].classList.add('completed');
+            if (index > 0) {
+                connectors[index - 1].classList.add('completed');
+            }
+        } else {
+            steps[index].classList.remove('completed');
+            if (index > 0) {
+                connectors[index - 1].classList.remove('completed');
+            }
+        }
+    });
+
+    // Update active step based on scroll
+    const currentSectionIndex = Array.from(sections).findIndex(section => {
+        const rect = section.getBoundingClientRect();
+        return rect.top > window.innerHeight * 0.2 && rect.top < window.innerHeight * 0.8;
+    });
+    
+    steps.forEach(step => step.classList.remove('active'));
+    if (currentSectionIndex > -1) {
+        steps[currentSectionIndex].classList.add('active');
+    }
+}
+
+// Form Submission
+async function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const errorContainer = document.getElementById('errorContainer');
+    const spinner = document.querySelector('.loading-spinner');
+    
+    try {
+        // Show loading state
+        spinner.style.display = 'block';
+        form.querySelector('button').disabled = true;
+        errorContainer.style.display = 'none';
+
+        // Execute reCAPTCHA
+        const token = await new Promise((resolve, reject) => {
+            grecaptcha.execute('YOUR_RECAPTCHA_SITE_KEY', {action: 'submit'}).then(resolve);
+        });
+
+        // Prepare form data
+        const formData = new FormData(form);
+        formData.append('recaptcha_token', token);
+
+        // Send to backend
+        const response = await fetch('/submit-form', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(Object.fromEntries(formData))
+        });
+
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+        }
+
+        // Show success
+        form.style.display = 'none';
+        document.querySelector('.thank-you').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+        errorContainer.textContent = `Submission failed: ${error.message}`;
+        errorContainer.style.display = 'block';
+        console.error('Form submission error:', error);
+    } finally {
+        spinner.style.display = 'none';
+        form.querySelector('button').disabled = false;
+        grecaptcha.reset();
+    }
+}
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize form validation
+    document.querySelectorAll('input, select, textarea').forEach(element => {
+        element.addEventListener('input', () => {
+            element.classList.remove('error');
+            updateProgress();
+        });
+    });
+
+    // Attach form handler
+    const waitlistForm = document.getElementById('waitlistForm');
+    if (waitlistForm) {
+        waitlistForm.addEventListener('submit', handleSubmit);
+    }
+
+    // Counter animation
+    const counterElement = document.getElementById('waitlistCounter');
+    if (counterElement) {
+        let count = 1247;
+        setInterval(() => {
+            count += Math.floor(Math.random() * 3);
+            counterElement.textContent = count.toLocaleString();
+        }, 3000);
+    }
+});
+
+// Scroll-based progress updates
+window.addEventListener('scroll', () => {
+    requestAnimationFrame(updateProgress);
+}, { passive: true });
+
+// Initial update
+updateProgress();
+</script>
+</body>
+</html>
